@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Csnappy",
+        "repositoryURL": "https://github.com/cipi1965/Csnappy.git",
+        "state": {
+          "branch": "master",
+          "revision": "ef5e381bba7c981d87d47dcdf1bdba116bedc8e1",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
