@@ -8,18 +8,54 @@
 
 import UIKit
 import ZIPFoundation
+import SwiftProtobuf
 
 
 class ViewController: UIViewController {
+
+    @IBOutlet weak var text: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
         //testUNZIP()
-        zipTest()
+        
+        //zipTest()
+        
         //let data = NSMutableData()
+        // let url = URL(string: "Slide-9368", relativeTo: Bundle.main.resourceURL)
+        let path = Bundle.main.path(forResource:"Slide-9368", ofType:"iwa")
+        let u = URL(fileURLWithPath: path!)
+        let d = NSData(contentsOf: u)
+        let textvobj = try! String(decoding: (d?.snappyIWADecompressed())!, as: UTF8.self)
+        
+        let url = URL(fileURLWithPath: "/Users/shuoxiao/snappyRe/proUseSnappy/temKeynote/Index/Slide-9368.iwa")
+        let oc = NSData(contentsOf: url)
+        let data = oc!.snappyIWADecompressed()!
+        var str = String(decoding: data, as: UTF8.self)
+        print(str)
+        text.text = str
+        textvobj.replacingOccurrences(of: "Pancake Title replace", with: "Topic")
+        
+        //testProto()
         //exportKeynoteData(didReceivePdfData: data)
         // Do any additional setup after loading the view.
     }
-    
+    func testProto() {
+        var obj = Im_helloworld()
+        obj.id = 1234
+        obj.opt = 12
+        obj.str = "i am a obj stuct"
+        do {
+            let data = try obj.serializedData()
+            print("\(data.count)")
+            
+            let decodedInfo = try Im_helloworld(serializedData: data)
+            print("decodedInfo str = \(decodedInfo.str)")
+            print("decodedInfo opt = \(decodedInfo.opt)")
+            print("decodedInfo id = \(decodedInfo.id)")
+        } catch {
+            print(error)
+        }
+    }
     func testUNZIP() {
         let fileManager = FileManager.default
         let currentWorkingPath = fileManager.currentDirectoryPath
@@ -48,31 +84,31 @@ class ViewController: UIViewController {
     }
     func zipTest() {
         let fileManager = FileManager.default
-        let currentWorkingPath = fileManager.currentDirectoryPath
-        let currentWorkingURL = URL(fileURLWithPath: currentWorkingPath, isDirectory: true)
+//        _ = fileManager.currentDirectoryPath
+//        _ = URL(fileURLWithPath: currentWorkingPath, isDirectory: true)
+//
+        var tempFolderURL = fileManager.temporaryDirectory.appendingPathComponent("Directory")
         
-        var unzipFolderURL = fileManager.temporaryDirectory.appendingPathComponent("Directory")
+        // Don't forget to clear temporary
         defer {
             do {
-                try fileManager.removeItem(at: unzipFolderURL)
+                try fileManager.removeItem(at: tempFolderURL)
             } catch {
-                print ("\(unzipFolderURL.absoluteURL)")
+                print ("\(tempFolderURL.absoluteURL)")
             }
         }
-        //let subdir = Bundle.main.resourceURL!.appendingPathComponent("temKeynote", isDirectory: true)
-        var  subdir = URL(string: "temKeynote", relativeTo: Bundle.main.resourceURL)
+        let  subdir = URL(string: "temKeynote", relativeTo: Bundle.main.resourceURL)
        
        
-        unzipFolderURL.appendPathComponent("untemKeynote.key")
+        tempFolderURL.appendPathComponent("temKeynote.key")
         do {
             
-            try fileManager.zipItem(at: subdir!, to: unzipFolderURL)
+            try fileManager.zipItem(at: subdir!, to: tempFolderURL)
                 
         } catch {
             print("Extraction of ZIP archive failed with error:\(error)")
         }
-        let keynote = unzipFolderURL
-        let dataKeynote = unzipFolderURL
+      
     }
 }
 
