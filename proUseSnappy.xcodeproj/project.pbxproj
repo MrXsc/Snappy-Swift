@@ -263,7 +263,7 @@
 				B49C8463249660410005C9C9 /* ocFile.mm */,
 				B4CF0F2424970AC100026661 /* proUseSnappy-Bridging-Header.h */,
 				B49C83AC2491DFD60005C9C9 /* simple.key */,
-				B4CF0EB32497005C00026661 /* xmind */,
+				B4CF0EB32497005C00026661 /* Keynote */,
 				B49C83AA2491DFC30005C9C9 /* temKeynote */,
 				B49C83B1249370BE0005C9C9 /* Proto-Swift */,
 				B4C2C2BC2490C3AC00C3F8BF /* proUseSnappy */,
@@ -296,7 +296,7 @@
 			path = proUseSnappy;
 			sourceTree = "<group>";
 		};
-		B4CF0EB32497005C00026661 /* xmind */ = {
+		B4CF0EB32497005C00026661 /* Keynote */ = {
 			isa = PBXGroup;
 			children = (
 				B4CF0EB42497005C00026661 /* preview.jpg */,
@@ -306,7 +306,7 @@
 				B4CF0ECC2497005C00026661 /* Data */,
 				B4CF0EDD2497005C00026661 /* Metadata */,
 			);
-			path = xmind;
+			path = Keynote;
 			sourceTree = "<group>";
 		};
 		B4CF0EB72497005C00026661 /* Index */ = {
