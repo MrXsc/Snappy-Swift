@@ -1,6 +1,6 @@
 # Snappy-Swift
 
-A demo project using snappy library.
+A demo project using snappy library in Swift.
 
 ## snappy
 
