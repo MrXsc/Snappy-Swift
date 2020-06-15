@@ -47,7 +47,6 @@
 		B49C83F6249376D50005C9C9 /* SwiftProtobufPluginLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = B49C83F5249376D50005C9C9 /* SwiftProtobufPluginLibrary */; };
 		B49C83F824937A790005C9C9 /* msg.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49C83F724937A790005C9C9 /* msg.pb.swift */; };
 		B49C8464249660410005C9C9 /* ocFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = B49C8463249660410005C9C9 /* ocFile.mm */; };
-		B49C8482249664CB0005C9C9 /* libsnappy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B49C8481249664CB0005C9C9 /* libsnappy.a */; };
 		B4C2C2BE2490C3AC00C3F8BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C2C2BD2490C3AC00C3F8BF /* AppDelegate.swift */; };
 		B4C2C2C02490C3AC00C3F8BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C2C2BF2490C3AC00C3F8BF /* SceneDelegate.swift */; };
 		B4C2C2C22490C3AC00C3F8BF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C2C2C12490C3AC00C3F8BF /* ViewController.swift */; };
@@ -97,6 +96,7 @@
 		B4CF0F082497005C00026661 /* DocumentIdentifier in Resources */ = {isa = PBXBuildFile; fileRef = B4CF0EDE2497005C00026661 /* DocumentIdentifier */; };
 		B4CF0F092497005C00026661 /* BuildVersionHistory.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4CF0EDF2497005C00026661 /* BuildVersionHistory.plist */; };
 		B4CF0F0A2497005C00026661 /* Properties.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4CF0EE02497005C00026661 /* Properties.plist */; };
+		B4CF0F352497246C00026661 /* libsnappy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4CF0F332497230700026661 /* libsnappy.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,7 +138,6 @@
 		B49C83F724937A790005C9C9 /* msg.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = msg.pb.swift; sourceTree = "<group>"; };
 		B49C8463249660410005C9C9 /* ocFile.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ocFile.mm; sourceTree = "<group>"; };
 		B49C847D249661540005C9C9 /* ocFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ocFile.h; sourceTree = "<group>"; };
-		B49C8481249664CB0005C9C9 /* libsnappy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsnappy.a; sourceTree = "<group>"; };
 		B4C2C2BA2490C3AC00C3F8BF /* proUseSnappy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = proUseSnappy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4C2C2BD2490C3AC00C3F8BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4C2C2BF2490C3AC00C3F8BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -191,6 +190,7 @@
 		B4CF0EDF2497005C00026661 /* BuildVersionHistory.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BuildVersionHistory.plist; sourceTree = "<group>"; };
 		B4CF0EE02497005C00026661 /* Properties.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Properties.plist; sourceTree = "<group>"; };
 		B4CF0F2424970AC100026661 /* proUseSnappy-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "proUseSnappy-Bridging-Header.h"; sourceTree = "<group>"; };
+		B4CF0F332497230700026661 /* libsnappy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsnappy.a; path = Externals/libsnappy.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,7 +198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B49C8482249664CB0005C9C9 /* libsnappy.a in Frameworks */,
+				B4CF0F352497246C00026661 /* libsnappy.a in Frameworks */,
 				B49C83F6249376D50005C9C9 /* SwiftProtobufPluginLibrary in Frameworks */,
 				B49C82D0249130D30005C9C9 /* ZIPFoundation in Frameworks */,
 				B49C83F4249376D50005C9C9 /* SwiftProtobuf in Frameworks */,
@@ -251,7 +251,6 @@
 		B49C8480249664B80005C9C9 /* Externals */ = {
 			isa = PBXGroup;
 			children = (
-				B49C8481249664CB0005C9C9 /* libsnappy.a */,
 			);
 			path = Externals;
 			sourceTree = "<group>";
@@ -269,6 +268,7 @@
 				B49C83B1249370BE0005C9C9 /* Proto-Swift */,
 				B4C2C2BC2490C3AC00C3F8BF /* proUseSnappy */,
 				B4C2C2BB2490C3AC00C3F8BF /* Products */,
+				B4CF0F322497230600026661 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -367,6 +367,14 @@
 				B4CF0EE02497005C00026661 /* Properties.plist */,
 			);
 			path = Metadata;
+			sourceTree = "<group>";
+		};
+		B4CF0F322497230600026661 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B4CF0F332497230700026661 /* libsnappy.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -592,6 +600,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -608,7 +617,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -652,6 +661,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -662,7 +672,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
