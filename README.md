@@ -6,7 +6,7 @@ A demo project using snappy library.
 
 [Snappy](https://github.com/google/snappy) is a compressor/uncompressor from Google.
 
-## OC - C++ - Swift
+## Swift <-> OC <-> C++  
 
 Please see this [process](https://github.com/MrXsc/Snappy-Swift/blob/master/Process.md).
 
