@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         let comData = (data?.snappyCompressed())! as NSData
         let textvobj = try String(decoding: comData, as: UTF8.self)
         text.text = textvobj
-        
+         
         let uncomString  = comData.decompressedSnappyString()
       
         // compress iwa
