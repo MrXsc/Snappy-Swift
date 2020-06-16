@@ -21,13 +21,15 @@ class ViewController: UIViewController {
         //zipTest()
         
         // uncompress iwa
-        let path = Bundle.main.path(forResource:"uncomText2", ofType: "txt")
+        let path = Bundle.main.path(forResource:"uncomText", ofType: "txt")
         let url = URL(fileURLWithPath: path!)
         let data = NSData(contentsOf: url)
         
-        let uncomData = data?.snappyDecompressed()
-        let textvobj = try String(decoding: uncomData!, as: UTF8.self)
+        let comData = (data?.snappyCompressed())! as NSData
+        let textvobj = try String(decoding: comData, as: UTF8.self)
         text.text = textvobj
+        
+        let uncomString  = comData.decompressedSnappyString()
       
         // compress iwa
         let fileManager = FileManager.default
@@ -36,9 +38,12 @@ class ViewController: UIViewController {
         uncomIwaURL.appendPathComponent("uncomText.txt")
         
         do {
-          try textvobj.write(to: uncomIwaURL, atomically: true, encoding: .utf8)
+            
+            try uncomString!.write(to: uncomIwaURL, atomically: true, encoding: .utf8)
+            text.text = uncomString
             // clear tmp direction
             try? FileManager.default.removeItem(at: uncomIwaURL)
+            
         } catch {
             print("\(error)")
         }

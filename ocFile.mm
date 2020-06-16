@@ -9,52 +9,72 @@
 
 #include "ocFile.h"
 #import "snappy.h"
+#import "snappy-c.h"
 
 @implementation NSData (IWSnappy)
 
 - (NSData *)snappyDecompressedData
 {
-    const char *bytes = (const char *)self.bytes;
-    size_t compressedLength = self.length;
-    size_t uncompressedLength = 0;
-    
+//    const char *bytes = (const char *)self.bytes;
+//    size_t compressedLength = self.length;
+//    size_t uncompressedLength = 0;
+//
 //    if (!snappy::IsValidCompressedBuffer(bytes, compressedLength) ||
 //        !snappy::GetUncompressedLength(bytes, compressedLength, &uncompressedLength)) {
 //        return nil;
 //    }
-    
-    if (!snappy::IsValidCompressedBuffer(bytes, compressedLength)) {
-        return nil;
+//
+//    NSMutableData *uncompressedData = [NSMutableData dataWithLength:uncompressedLength];
+//    if (!snappy::RawUncompress(bytes, compressedLength, (char *)uncompressedData.mutableBytes)) {
+//        return nil;
+//    }
+//
+//    return uncompressedData;
+ 
+    size_t uncompressLen;
+    char *buffer = (char *)[self bytes];
+    NSUInteger dataLen = [self length];
+       
+    int error = 0;
+    snappy_uncompressed_length(buffer, dataLen, &uncompressLen);
+    char *uncompressData = (char *)malloc(sizeof(char) * uncompressLen);
+    error = snappy_uncompress(buffer, dataLen, uncompressData, &uncompressLen);
+    if (error != 0) {
+        free(uncompressData);
+        uncompressData = NULL;
     }
-        
-    if (!snappy::GetUncompressedLength(bytes, compressedLength, &uncompressedLength)) {
-        return nil;
-    }
-    
-    
-    NSMutableData *uncompressedData = [NSMutableData dataWithLength:uncompressedLength];
-    if (!snappy::RawUncompress(bytes, compressedLength, (char *)uncompressedData.mutableBytes)) {
-        return nil;
-    }
-    
-    return uncompressedData;
+       
+    return [[NSData alloc] initWithBytes:uncompressData length:uncompressLen];
+
 }
 
 
 - (NSData *)snappyCompressedData
 {
-    const char *bytes = (const char *)self.bytes;
-    size_t uncompressedLength = self.length;
-    size_t compressedLength = snappy::MaxCompressedLength(uncompressedLength);
-
-    NSMutableData *compressedData = [NSMutableData dataWithLength: compressedLength];
-    
-    snappy::RawCompress(bytes, uncompressedLength, (char *)compressedData.mutableBytes, &compressedLength);
-    
-    [compressedData setLength:compressedLength];
-    
-    return compressedData;
-    
+//    const char *bytes = (const char *)self.bytes;
+//    size_t uncompressedLength = self.length;
+//    size_t compressedLength = snappy::MaxCompressedLength(uncompressedLength);
+//
+//    NSMutableData *compressedData = [NSMutableData dataWithLength: compressedLength];
+//
+//    snappy::RawCompress(bytes, uncompressedLength, (char *)compressedData.mutableBytes, &compressedLength);
+//
+//    [compressedData setLength:compressedLength];
+//
+//    return compressedData;
+    char *buffer = (char *)[self bytes];
+    NSUInteger dataLen = [self length];
+       
+    int error = 0;
+       
+    size_t compressLen = snappy_max_compressed_length(dataLen);
+    char *compressBuffer = (char *)malloc(compressLen);
+    error = snappy_compress(buffer, dataLen, compressBuffer, &compressLen);
+    NSData *compressData;
+    if (error == 0) {
+        compressData = [[NSData alloc] initWithBytes:compressBuffer length:compressLen];
+    }
+    return compressData;
 }
 
  
@@ -128,6 +148,19 @@
     [combinedData appendData:compressed];
     
     return combinedData;
+}
+
+- (NSString *)decompressedSnappyString {
+    return [[NSString alloc] initWithData:[self snappyDecompressedData]
+                                 encoding:NSUTF8StringEncoding];
+}
+
+@end
+
+@implementation NSString (Snappy)
+
+- (NSData *)compressedSnappyString {
+    return [[self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO] snappyCompressedData];
 }
 
 @end

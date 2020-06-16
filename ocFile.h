@@ -23,6 +23,14 @@
 
 - (NSData *)snappyIWACompressedData;
 
+- (NSString *)decompressedSnappyString;
+
+@end
+
+@interface NSString (Snappy)
+
+- (NSData *)compressedSnappyString;
+
 @end
 
 #endif /* ocFile_h */
