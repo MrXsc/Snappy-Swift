@@ -8,9 +8,7 @@
 
 
 #include "ocFile.h"
-
 #import "snappy.h"
-
 
 @implementation NSData (IWSnappy)
 
@@ -20,10 +18,19 @@
     size_t compressedLength = self.length;
     size_t uncompressedLength = 0;
     
-    if (!snappy::IsValidCompressedBuffer(bytes, compressedLength) ||
-        !snappy::GetUncompressedLength(bytes, compressedLength, &uncompressedLength)) {
+//    if (!snappy::IsValidCompressedBuffer(bytes, compressedLength) ||
+//        !snappy::GetUncompressedLength(bytes, compressedLength, &uncompressedLength)) {
+//        return nil;
+//    }
+    
+    if (!snappy::IsValidCompressedBuffer(bytes, compressedLength)) {
         return nil;
     }
+        
+    if (!snappy::GetUncompressedLength(bytes, compressedLength, &uncompressedLength)) {
+        return nil;
+    }
+    
     
     NSMutableData *uncompressedData = [NSMutableData dataWithLength:uncompressedLength];
     if (!snappy::RawUncompress(bytes, compressedLength, (char *)uncompressedData.mutableBytes)) {
@@ -32,6 +39,25 @@
     
     return uncompressedData;
 }
+
+
+- (NSData *)snappyCompressedData
+{
+    const char *bytes = (const char *)self.bytes;
+    size_t uncompressedLength = self.length;
+    size_t compressedLength = snappy::MaxCompressedLength(uncompressedLength);
+
+    NSMutableData *compressedData = [NSMutableData dataWithLength: compressedLength];
+    
+    snappy::RawCompress(bytes, uncompressedLength, (char *)compressedData.mutableBytes, &compressedLength);
+    
+    [compressedData setLength:compressedLength];
+    
+    return compressedData;
+    
+}
+
+ 
 
 
 - (NSData *)snappyIWADecompressedData
@@ -77,6 +103,29 @@
     for (NSData *chunk in decompressedChunks) {
         [combinedData appendData:chunk];
     }
+    
+    return combinedData;
+}
+
+- (NSData *)snappyIWACompressedData {
+
+    size_t uncompressedLength = self.length;
+    
+    uint32_t chunkLength = 0;
+    chunkLength = NSSwapLittleIntToHost(chunkLength);
+    chunkLength += uncompressedLength;
+    
+    chunkLength <<= 8;
+    
+    NSData *compressed = [self snappyCompressedData];
+    size_t compressedLength = snappy::MaxCompressedLength(uncompressedLength);
+    NSMutableData *combinedData = [NSMutableData dataWithCapacity:compressed.length + 4];
+    
+    NSData *headerData = [NSData dataWithBytes:&chunkLength length: sizeof(chunkLength)];
+    
+    [combinedData appendData:headerData];
+    
+    [combinedData appendData:compressed];
     
     return combinedData;
 }

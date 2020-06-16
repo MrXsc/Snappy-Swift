@@ -21,27 +21,24 @@ class ViewController: UIViewController {
         //zipTest()
         
         // uncompress iwa
-        let path = Bundle.main.path(forResource:"Slide-9368", ofType:"iwa")
+        let path = Bundle.main.path(forResource:"uncomText2", ofType: "txt")
         let url = URL(fileURLWithPath: path!)
         let data = NSData(contentsOf: url)
-        let textvobj = try! String(decoding: (data?.snappyIWADecompressed())!, as: UTF8.self)
-        text.text = textvobj
         
+        let uncomData = data?.snappyDecompressed()
+        let textvobj = try String(decoding: uncomData!, as: UTF8.self)
+        text.text = textvobj
+      
         // compress iwa
         let fileManager = FileManager.default
         let tmpURL = fileManager.temporaryDirectory
         var uncomIwaURL = tmpURL
-        uncomIwaURL.appendPathComponent("Slide-9368.iwa")
-   
-        
-        
+        uncomIwaURL.appendPathComponent("uncomText.txt")
         
         do {
-            try textvobj.write(to: uncomIwaURL, atomically: true, encoding: .utf8)
-            
-            
-            try? FileManager.default.removeItem(at: url)
-        //try? FileManager.default.removeItem(at: fileURL)
+          try textvobj.write(to: uncomIwaURL, atomically: true, encoding: .utf8)
+            // clear tmp direction
+            try? FileManager.default.removeItem(at: uncomIwaURL)
         } catch {
             print("\(error)")
         }

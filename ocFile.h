@@ -15,8 +15,13 @@
 // Uses raw snappy decompression
 - (NSData *)snappyDecompressedData;
 
-// For data in .iwa format, where delimited chunks are snappy compressed with a 4 byte header.
+// Uses raw snappy Compression
+- (NSData *)snappyCompressedData;
+
+// For data in .iwa format, where delimited chunks are snappy compressed with a 4 bytes header.
 - (NSData *)snappyIWADecompressedData;
+
+- (NSData *)snappyIWACompressedData;
 
 @end
 
