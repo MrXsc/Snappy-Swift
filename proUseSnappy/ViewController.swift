@@ -37,6 +37,7 @@ class ViewController: UIViewController {
         var uncomIwaURL = tmpURL
         uncomIwaURL.appendPathComponent("uncomText.txt")
         
+        
         do {
             
             try uncomString!.write(to: uncomIwaURL, atomically: true, encoding: .utf8)
