@@ -100,6 +100,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B43FC8A52498C2A100A79574 /* snappy-stubs-public.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "snappy-stubs-public.h"; sourceTree = "<group>"; };
+		B43FC8A62498C2A200A79574 /* snappy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = snappy.h; sourceTree = "<group>"; };
+		B43FC8A72498C2A200A79574 /* snappy-sinksource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "snappy-sinksource.h"; sourceTree = "<group>"; };
 		B49C83A82491DAA50005C9C9 /* ViewController+export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+export.swift"; sourceTree = "<group>"; };
 		B49C83AA2491DFC30005C9C9 /* temKeynote */ = {isa = PBXFileReference; lastKnownFileType = folder; path = temKeynote; sourceTree = "<group>"; };
 		B49C83AC2491DFD60005C9C9 /* simple.key */ = {isa = PBXFileReference; lastKnownFileType = file; name = simple.key; path = ZipFile/simple.key; sourceTree = "<group>"; };
@@ -261,6 +264,9 @@
 				B49C8480249664B80005C9C9 /* Externals */,
 				B49C847D249661540005C9C9 /* ocFile.h */,
 				B49C8463249660410005C9C9 /* ocFile.mm */,
+				B43FC8A72498C2A200A79574 /* snappy-sinksource.h */,
+				B43FC8A52498C2A100A79574 /* snappy-stubs-public.h */,
+				B43FC8A62498C2A200A79574 /* snappy.h */,
 				B4CF0F2424970AC100026661 /* proUseSnappy-Bridging-Header.h */,
 				B49C83AC2491DFD60005C9C9 /* simple.key */,
 				B4CF0EB32497005C00026661 /* Keynote */,

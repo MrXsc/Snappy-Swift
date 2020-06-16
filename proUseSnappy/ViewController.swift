@@ -20,24 +20,32 @@ class ViewController: UIViewController {
         
         //zipTest()
         
-        //let data = NSMutableData()
-        // let url = URL(string: "Slide-9368", relativeTo: Bundle.main.resourceURL)
+        // uncompress iwa
         let path = Bundle.main.path(forResource:"Slide-9368", ofType:"iwa")
-        let u = URL(fileURLWithPath: path!)
-        let d = NSData(contentsOf: u)
-        let textvobj = try! String(decoding: (d?.snappyIWADecompressed())!, as: UTF8.self)
+        let url = URL(fileURLWithPath: path!)
+        let data = NSData(contentsOf: url)
+        let textvobj = try! String(decoding: (data?.snappyIWADecompressed())!, as: UTF8.self)
+        text.text = textvobj
         
-        let url = URL(fileURLWithPath: "/Users/shuoxiao/snappyRe/proUseSnappy/temKeynote/Index/Slide-9368.iwa")
-        let oc = NSData(contentsOf: url)
-        let data = oc!.snappyIWADecompressed()!
-        var str = String(decoding: data, as: UTF8.self)
-        print(str)
-        text.text = str
-        textvobj.replacingOccurrences(of: "Pancake Title replace", with: "Topic")
+        // compress iwa
+        let fileManager = FileManager.default
+        let tmpURL = fileManager.temporaryDirectory
+        var uncomIwaURL = tmpURL
+        uncomIwaURL.appendPathComponent("Slide-9368.iwa")
+   
         
-        //testProto()
-        //exportKeynoteData(didReceivePdfData: data)
-        // Do any additional setup after loading the view.
+        
+        
+        do {
+            try textvobj.write(to: uncomIwaURL, atomically: true, encoding: .utf8)
+            
+            
+            try? FileManager.default.removeItem(at: url)
+        //try? FileManager.default.removeItem(at: fileURL)
+        } catch {
+            print("\(error)")
+        }
+        
     }
     func testProto() {
         var obj = Im_helloworld()

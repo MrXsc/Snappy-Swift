@@ -9,7 +9,7 @@
 
 #include "ocFile.h"
 
-#import "/usr/local/include/snappy.h"
+#import "snappy.h"
 
 
 @implementation NSData (IWSnappy)
