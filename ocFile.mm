@@ -15,22 +15,6 @@
 
 - (NSData *)snappyDecompressedData
 {
-//    const char *bytes = (const char *)self.bytes;
-//    size_t compressedLength = self.length;
-//    size_t uncompressedLength = 0;
-//
-//    if (!snappy::IsValidCompressedBuffer(bytes, compressedLength) ||
-//        !snappy::GetUncompressedLength(bytes, compressedLength, &uncompressedLength)) {
-//        return nil;
-//    }
-//
-//    NSMutableData *uncompressedData = [NSMutableData dataWithLength:uncompressedLength];
-//    if (!snappy::RawUncompress(bytes, compressedLength, (char *)uncompressedData.mutableBytes)) {
-//        return nil;
-//    }
-//
-//    return uncompressedData;
- 
     size_t uncompressLen;
     char *buffer = (char *)[self bytes];
     NSUInteger dataLen = [self length];
@@ -51,17 +35,6 @@
 
 - (NSData *)snappyCompressedData
 {
-//    const char *bytes = (const char *)self.bytes;
-//    size_t uncompressedLength = self.length;
-//    size_t compressedLength = snappy::MaxCompressedLength(uncompressedLength);
-//
-//    NSMutableData *compressedData = [NSMutableData dataWithLength: compressedLength];
-//
-//    snappy::RawCompress(bytes, uncompressedLength, (char *)compressedData.mutableBytes, &compressedLength);
-//
-//    [compressedData setLength:compressedLength];
-//
-//    return compressedData;
     char *buffer = (char *)[self bytes];
     NSUInteger dataLen = [self length];
        
@@ -138,7 +111,7 @@
     chunkLength <<= 8;
     
     NSData *compressed = [self snappyCompressedData];
-    size_t compressedLength = snappy::MaxCompressedLength(uncompressedLength);
+    size_t compressedLength = snappy_max_compressed_length(uncompressedLength);
     NSMutableData *combinedData = [NSMutableData dataWithCapacity:compressed.length + 4];
     
     NSData *headerData = [NSData dataWithBytes:&chunkLength length: sizeof(chunkLength)];

@@ -13,43 +13,48 @@ import SwiftProtobuf
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var textRight: UITextView!
     @IBOutlet weak var text: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        //testUNZIP()
         
-        //zipTest()
+        testSnappy()
         
-        // uncompress iwa
+
+    }
+    
+    func testSnappy() {
         let path = Bundle.main.path(forResource:"uncomText", ofType: "txt")
         let url = URL(fileURLWithPath: path!)
         let data = NSData(contentsOf: url)
         
+        //Compresse
         let comData = (data?.snappyCompressed())! as NSData
-        let textvobj = try String(decoding: comData, as: UTF8.self)
-        text.text = textvobj
+        let textobj = String(decoding: comData, as: UTF8.self)
+        text.text = textobj
+        print(textobj)
          
-        let uncomString  = comData.decompressedSnappyString()
-      
-        // compress iwa
         let fileManager = FileManager.default
         let tmpURL = fileManager.temporaryDirectory
-        var uncomIwaURL = tmpURL
-        uncomIwaURL.appendPathComponent("uncomText.txt")
-        
+        var uncomURL = tmpURL
+        uncomURL.appendPathComponent("comText.txt")
+
+        //Decompresse
+        let uncomData = comData.snappyDecompressed()! as NSData
         
         do {
-            
-            try uncomString!.write(to: uncomIwaURL, atomically: true, encoding: .utf8)
-            text.text = uncomString
+            try uncomData.write(to: uncomURL, atomically: true)
+            let textobj = String(decoding: uncomData, as: UTF8.self)
+            textRight.text = textobj
             // clear tmp direction
-            try? FileManager.default.removeItem(at: uncomIwaURL)
-            
+            try? FileManager.default.removeItem(at: uncomURL)
+
         } catch {
             print("\(error)")
         }
-        
     }
+
+
     func testProto() {
         var obj = Im_helloworld()
         obj.id = 1234
