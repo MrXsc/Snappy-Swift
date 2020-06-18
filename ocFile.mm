@@ -50,7 +50,6 @@
     return compressData;
 }
 
- 
 
 
 - (NSData *)snappyIWADecompressedData
@@ -104,14 +103,15 @@
 
     size_t uncompressedLength = self.length;
     
+    NSData *compressed = [self snappyCompressedData];
     uint32_t chunkLength = 0;
     chunkLength = NSSwapLittleIntToHost(chunkLength);
-    chunkLength += uncompressedLength;
+    chunkLength += compressed.length;
     
     chunkLength <<= 8;
     
-    NSData *compressed = [self snappyCompressedData];
-    size_t compressedLength = snappy_max_compressed_length(uncompressedLength);
+    
+    //size_t compressedLength = snappy_max_compressed_length(uncompressedLength);
     NSMutableData *combinedData = [NSMutableData dataWithCapacity:compressed.length + 4];
     
     NSData *headerData = [NSData dataWithBytes:&chunkLength length: sizeof(chunkLength)];

@@ -18,9 +18,52 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        testSnappy()
+        testIWASnappy()
+    }
+    
+    
+    func testIWASnappy() {
+        text.text = ""
+        textRight.text = ""
+        let path = Bundle.main.path(forResource:"Slide-9368", ofType: "iwa")
+        let url = URL(fileURLWithPath: path!)
+        let data = NSData(contentsOf: url)
+               
+        // DeCompresse
         
+        let textobj = String(decoding: data!, as: UTF8.self)
+        text.text = textobj
+        let uncomData = (data?.snappyIWADecompressed())! as NSData
+        let untext = String(decoding: uncomData, as: UTF8.self)
+        // textRight.text = untext
+        print(untext)
+        
+        // Decompression is work.
+        
+        //-----------------------
+        
+        // Compression is confusion.
+        let recomData = uncomData.snappyIWACompressed() as NSData
+        let recomString = String(decoding: recomData, as: UTF8.self)
+        textRight.text = untext
+        
+        // keep in tmp
+        let fileManager = FileManager.default
+        let tmpURL = fileManager.temporaryDirectory
+        var comURL = tmpURL
+        comURL.appendPathComponent("Slide-9368.iwa")
 
+        //Decompresse
+        do {
+            try recomData.write(to: comURL, atomically: true)
+           
+            // clear tmp direction
+            try? FileManager.default.removeItem(at: comURL)
+
+        } catch {
+            print("\(error)")
+        }
+        
     }
     
     func testSnappy() {
