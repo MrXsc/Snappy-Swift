@@ -40,7 +40,40 @@ class ViewController: UIViewController {
         
         // Decompression is work.
         
+        
+        // Here is a using data [uncomData]
+        //
+        
+        
+        // uncomData -> protobuf object
+        do {
+           
+            
+//            var stream = try Google_Protobuf_SourceCodeInfo(serializedData: uncomData as Data)
+//            stream.decodeMessage(decoder: &Decoder)
+            
+            
+//            var iwaInfo = try TSP_ArchiveInfo(serializedData: uncomData as Data)
+            //print(iwaInfo.identifier)
+            
+//            for i in uncomData {
+//                print(i)
+//            }
+           
+            
+            print(uncomData)
+            
+            
+            var info = try TSP_ArchiveInfo(serializedData: uncomData as Data)
+            
+            
+        } catch {
+            print(error)
+        }
+        
+        
         //-----------------------
+        
         
         // Compression is confusion.
         let recomData = uncomData.snappyIWACompressed() as NSData
