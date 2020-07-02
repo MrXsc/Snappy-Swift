@@ -200,8 +200,7 @@ class ViewController: UIViewController {
         } catch {
             print("Extraction of ZIP archive failed with error:\(error)")
         }
-      
-    } 
+    }
 }
 
 
